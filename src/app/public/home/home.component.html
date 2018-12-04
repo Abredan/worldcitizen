@@ -1,3 +1,32 @@
-<p>
-  home works!
-</p>
+<app-navheader (valueChange)="queryCountries($event)"></app-navheader>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="container-hack">
+        <div class="countries-list" *ngIf="countries.length; else nothing">
+          <div class="item js-marker" *ngFor="let country of countries" attr.data-latlng="{{country.latlng}}" attr.data-location="{{country.location}}" (mouseenter)="toggleMapItem(country)" (mouseleave)="disableMarker()" (click)="pickOne(country)">
+            <div class="image">
+              <img src="http://placehold.it/50x50" alt="Image">
+            </div>
+            <div class="details">
+              <h3><img src="{{ country.flag }}" alt="flag" class="flag" width="20" height="15"> {{ country.name }} <span>({{ country.alpha3Code }})</span></h3>
+              <p><span class="label">Capitale:</span> {{ country.capital||'_' }}</p>
+              <p><ion-icon name="people"></ion-icon> {{ country.population|number }}  <ion-icon name="call"></ion-icon> +( {{ country.callingCodes[0] }} )</p>
+            </div>
+          </div>
+        </div>
+        <div class="map" id="map" #map></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #nothing>
+  <div class="countries-list">
+    <div class="nothing">
+      <h1>Aucun résultat</h1>
+      <p>Try with another country name, code, city, currency</p>
+    </div>
+  </div>
+</ng-template>

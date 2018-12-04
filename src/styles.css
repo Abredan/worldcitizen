@@ -1,1 +1,219 @@
 /* You can add global styles to this file, and also import other style files */
+/* @import url('https://fonts.googleapis.com/css?family=Raleway|Jua|Poppins'); */
+html{
+    --primary: #2ec126;
+    --secondary: #3b8e0c;
+    --headerText: #444;
+
+    --font: 'Proxima nova', sans-serif;
+    --fontColor: #666;
+
+    -ms-text-size-adjust:100%;
+    -webkit-text-size-adjust:100%;    
+}
+
+body{
+    font-family: var(--font);
+    color: var(--fontColor);
+    font-size: 14px;
+    margin-top: 70px;
+}
+
+/* ICONS */
+ion-icon{
+    vertical-align: middle;
+}
+
+/* NAVBAR */
+nav{
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+    background-color: #fff;
+}
+nav a.navbar-brand{
+    font-weight: bold;
+}
+nav ul{
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 1em;
+}
+nav form input.form-control{
+    transition: box-shadow 200ms ease-in !important;
+    background-color: #F2F2F2;
+    line-height: 2rem;
+    border: none !important;
+    font-size: 14px;
+    border-radius: 2px !important;
+    width: 460px !important;
+}
+/* NOTHING */
+.nothing{
+    display: block;
+    width: 500px;
+    padding: 50px;
+    margin: 0 130px;
+    text-align: center;
+}
+.nothing h1{
+    font-weight: bold;
+    margin-bottom: 0;
+}
+.nothing p{
+    padding: 0;
+    margin: 0;
+}
+
+/* COUNTRY CARD */
+.countries-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 10px;
+    /* flex-flow: row wrap; */
+    /* grid-template-columns: 1fr 1.5fr 1fr; */
+    grid-template-rows: repeat(20,0fr);
+    /* align-items: flex-start; */
+    padding-right: 10px;
+}
+.countries-list .item{
+    margin-bottom: 1rem;
+    transition: box-shadow .3s;
+    padding: 5px 15px 0px;
+    height: 60px;
+    cursor: pointer;
+}
+.countries-list .item:hover{
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    background-color: #fff;
+}
+.countries-list .item .image{
+    margin-right: 5px;
+}
+.countries-list .item h3{ 
+    font-weight: bold;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 160px;
+}
+.countries-list .item h3 img{
+    display: inline-block;
+}
+
+.item.js-marker .oneline{
+    width: 230px;
+}
+.countries-list .item .image,.countries-list .item .details {
+    display: inline-block;
+}
+.countries-list .item .details *{
+    padding: 0px;
+    margin: 0px;
+    font-size: 13px;
+}
+.countries-list .item img{
+    margin-left: -10px;
+    display: block;
+}
+
+/* LEAFLET MARKER */
+.marker{
+    transform: translate(-45%, calc(-100% - 0px));
+    white-space: nowrap;
+    font-size: 10px;
+    padding: 5px 10px;
+    font-weight: bold;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+}
+.marker::after{
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin-left: -8px;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #fff;
+}
+.marker.is-active{
+    z-index: 100000;
+    background-color: orangered;
+    color: #fff;
+}
+.marker.is-active::after{
+    border-top-color: orangered;
+}
+
+/* LEAFLET POPUP */
+.leaflet-popup-content {
+    font-display: fallback;
+    margin: 8px 10px;
+    line-height: 1.4;
+}
+.leaflet-popup {
+    position: absolute;
+    text-align: center;
+    margin-bottom: 14px;
+}
+
+.leaflet-container .markerview .item{
+    max-width: 160px;
+}
+.leaflet-container .markerview a{
+    text-transform: uppercase;
+    height: 25px;
+    font-size: .9em;
+    margin: 5px 0;
+    color: #fff;
+}
+.leaflet-container .markerview .item h5{
+    text-transform: uppercase;
+    font-size: 1em;
+}
+.leaflet-container .markerview .item h5 span{
+    font-weight: normal;
+}
+.leaflet-container .markerview .item p{
+    margin: 6px 0;
+    color: #888;
+}
+.leaflet-container .markerview .item img{
+    transform: translate(-12px, -15px);
+    width: calc(100% + 24px);
+}
+
+/* RESPONSIVE */
+@media only screen and (min-width: 1160px){
+    .container-hack{
+        display: grid;
+        grid-template-columns: 7fr 4fr;
+    }
+    .map{
+        position: sticky !important;
+        right: -10px;
+        top: 60px;
+        background-color: #ccc;
+        height: calc(100vh - 70px);
+    }
+    .countries-list{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only screen and (max-width: 790px){
+    .navbar-collapse input.form-control{ width: 260px !important; }
+    .countries-list .item{ height: auto;}
+    .countries-list .item span.label{ visibility: hidden; display: none;}
+    .countries-list .item .image{
+        display: block;
+        margin: 10px;
+        width: 100%;
+    }
+    .countries-list .item .image img{
+        width: 100%;
+    }
+}
