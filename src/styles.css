@@ -230,7 +230,7 @@ nav form input.form-control{
     .indicatif ion-icon{
         display: none;
     }
-    .navbar-collapse input.form-control{ width: 260px !important; }
+    .navbar-collapse input.form-control{ width: 200px !important; }
     .countries-list .item{ height: auto;}
     /* .countries-list .item span.label{ visibility: hidden; display: none;} */
     .countries-list .item .image{
