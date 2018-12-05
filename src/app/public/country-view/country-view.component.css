@@ -1,0 +1,38 @@
+label{
+    width: 200px;
+    color: #aaa;
+    margin: 10px 0 0px;
+}
+h1, h3{
+    font-weight: bold;
+    margin: 20px 0;
+    line-height: 2rem;
+}
+h3{
+    margin-top: -5px;
+}
+h1 small{
+    font-size: 1.2rem
+}
+h4{
+    font-weight: bold;
+    margin-top: 30px;
+}
+.decal{
+    margin-left: 10px;
+}
+.indicatif{
+    font-size: 2rem;
+    font-weight: bold;
+}
+.loading{
+    padding: 200px 0;
+}
+.currency{ margin-bottom: 10px;}
+.currency *{
+    line-height: 1em;
+}
+.currency p{
+    margin-bottom: 0;
+    font-weight: bold;
+}

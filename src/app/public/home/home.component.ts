@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   selector: string = '.countries-list';
   oldSelected: any = null;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.map = leaflet.map("map").fitWorld();
@@ -34,7 +34,10 @@ export class HomeComponent implements OnInit {
     console.log(results);
     this.countries = results.countries;
     this.searchText = results.searchText;
-    this.loadMarkers(this.countries);
+    if(this.countries.length)
+      this.loadMarkers(this.countries);
+    else
+      this.markerGroup.clearLayers();
   }
 
   disableMarker(){
@@ -46,13 +49,15 @@ export class HomeComponent implements OnInit {
   }
 
   pickOne(country: any){
-    // this.router.navigateByUrl('events/'+hackathon.reference);
-    this.map.flyTo(country.latlng, 6);
+    this.map.flyTo(country.latlng, 6, {duration:1});
     this.markerGroup.eachLayer(function (layer) {
       if(layer.options.reference === country.alpha3Code){
         layer.openPopup();
       }
     });
+    setTimeout(()=>{
+      this.router.navigateByUrl('/country/'+country.alpha3Code);
+    },1200)
   }
 
   toggleMapItem(country: any){
@@ -62,7 +67,7 @@ export class HomeComponent implements OnInit {
                       .setZIndexOffset(0);
     }
     this.markerGroup.eachLayer(function (layer) {
-      if(layer.options.reference === country.reference){
+      if(layer.options.reference === country.alpha3Code){
         layer.setIcon(that.iconTemplate(layer.options.label, true))
         .setZIndexOffset(1000);
         that.oldSelected = layer;
@@ -81,30 +86,33 @@ export class HomeComponent implements OnInit {
   loadMarkers(countries: any[]) {
     this.markerGroup.clearLayers();
     countries.forEach(country => {
-      let coords = country.latlng;
-      let myIcon = this.iconTemplate(country.name);
-      let marker: any = leaflet.marker([coords[0],coords[1]],{
-        icon: myIcon,
-        riseOnHover: false,
-        riseOffset: 10000,
-        reference: country.alpha3Code,
-        label: country.name,
-      }).on('click', (ev)=>{
-        this.map.flyTo(country.latlng, 6);
-      });
-      
-      let popup = new leaflet.popup()
-        .setLatLng([coords[0],coords[1]])
-        .setContent(`<div class="markerview"><div class="item">
-                      <img src="${country.flag}" alt="${country.nativeName}" width="100%">
-                      <h5>${country.nativeName}<br>${country.capital.substr(0,25)} <br>
-                      <span class="name">${country.subregion}</span></h5>
-                      <span class="oneline"><ion-icon name="pin"></ion-icon> ${country.region}</span>
-                    </div><a href="/events/${country.alpha3Code}" class="btn btn-sm btn-block btn-secondary" >Voir plus</a></div>`);
-      marker.bindPopup(popup);
+      if(country.latlng.length>1){
+        let coords = country.latlng;
+        let myIcon = this.iconTemplate(country.name);
+        let marker: any = leaflet.marker([coords[0],coords[1]],{
+          icon: myIcon,
+          riseOnHover: false,
+          riseOffset: 10000,
+          reference: country.alpha3Code,
+          label: country.name,
+        }).on('click', (ev)=>{
+          this.map.flyTo(country.latlng, 6, {zoom:6,duration:0.2});
+          // this.router.navigateByUrl('/country/'+country.alpha3Code);
 
-      this.markerGroup.addLayer(marker);
-      // console.log(marker);
+        });
+        
+        let popup = new leaflet.popup()
+          .setLatLng([coords[0],coords[1]])
+          .setContent(`<div class="markerview"><div class="item">
+                        <img src="${country.flag}" alt="${country.nativeName}" width="100%">
+                        <h5>${country.nativeName}<br>${country.capital.substr(0,25)} <br>
+                        <span class="name">${country.subregion}</span></h5>
+                        <span class="oneline"><ion-icon name="pin"></ion-icon> ${country.region}</span>
+                      </div></div>`);
+        marker.bindPopup(popup);
+
+        this.markerGroup.addLayer(marker);
+      }
     });
     this.map.addLayer(this.markerGroup);
     this.map.fitBounds(this.markerGroup.getBounds());

@@ -1,22 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
 /* @import url('https://fonts.googleapis.com/css?family=Raleway|Jua|Poppins'); */
 html{
-    --primary: #2ec126;
-    --secondary: #3b8e0c;
-    --headerText: #444;
-
     --font: 'Proxima nova', sans-serif;
     --fontColor: #666;
 
     -ms-text-size-adjust:100%;
     -webkit-text-size-adjust:100%;    
 }
-
 body{
+    --primary: #2ec126;
+    --secondary: #3b8e0c;
+    --headerText: #444;
+
     font-family: var(--font);
     color: var(--fontColor);
     font-size: 14px;
     margin-top: 70px;
+}
+
+a.back{
+    font-size: 1.5em;
+    text-decoration: none;
+    color: var(--secondary) !important;
+}
+a.back:hover{
+    color: var(--secondary) !important;
 }
 
 /* ICONS */
@@ -28,9 +36,12 @@ ion-icon{
 nav{
     box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
     background-color: #fff;
+    height: 60px;
 }
+.navbar-collapse{flex-basis: 50% !important;}
 nav a.navbar-brand{
     font-weight: bold;
+    color: var(--primary) !important;
 }
 nav ul{
     font-weight: normal;
@@ -46,6 +57,8 @@ nav form input.form-control{
     border-radius: 2px !important;
     width: 460px !important;
 }
+
+
 /* NOTHING */
 .nothing{
     display: block;
@@ -62,6 +75,7 @@ nav form input.form-control{
     padding: 0;
     margin: 0;
 }
+
 
 /* COUNTRY CARD */
 .countries-list{
@@ -99,7 +113,9 @@ nav form input.form-control{
 .countries-list .item h3 img{
     display: inline-block;
 }
-
+.decal h1{
+    color: var(--secondary);
+}
 .item.js-marker .oneline{
     width: 230px;
 }
@@ -110,6 +126,9 @@ nav form input.form-control{
     padding: 0px;
     margin: 0px;
     font-size: 13px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 .countries-list .item img{
     margin-left: -10px;
@@ -141,11 +160,11 @@ nav form input.form-control{
 }
 .marker.is-active{
     z-index: 100000;
-    background-color: orangered;
+    background-color: var(--primary);
     color: #fff;
 }
 .marker.is-active::after{
-    border-top-color: orangered;
+    border-top-color: var(--primary);
 }
 
 /* LEAFLET POPUP */
@@ -190,14 +209,14 @@ nav form input.form-control{
 @media only screen and (min-width: 1160px){
     .container-hack{
         display: grid;
-        grid-template-columns: 7fr 4fr;
+        grid-template-columns: 4fr 4fr;
     }
     .map{
         position: sticky !important;
-        right: -10px;
+        right: 0px;
         top: 60px;
         background-color: #ccc;
-        height: calc(100vh - 70px);
+        height: calc(100vh - 60px);
     }
     .countries-list{
         grid-template-columns: repeat(3, 1fr);
@@ -205,9 +224,15 @@ nav form input.form-control{
 }
 
 @media only screen and (max-width: 790px){
+    .countries-list{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .indicatif ion-icon{
+        display: none;
+    }
     .navbar-collapse input.form-control{ width: 260px !important; }
     .countries-list .item{ height: auto;}
-    .countries-list .item span.label{ visibility: hidden; display: none;}
+    /* .countries-list .item span.label{ visibility: hidden; display: none;} */
     .countries-list .item .image{
         display: block;
         margin: 10px;

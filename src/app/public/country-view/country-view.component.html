@@ -1,0 +1,95 @@
+<!-- <app-navheader [hide]="true"></app-navheader> -->
+<ng-progress [color]="'#3b8e0c'"></ng-progress>
+<div class="modal-open">
+  <div class="modal fade show"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" style="display: block; padding-right: 17px;
+  background: rgba(0,0,0,.8);">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="container-fluid" *ngIf="country; else loading">
+            <div class="row">
+              <div class="col-12">
+                <a [routerLink]="''" class="back"><ion-icon name="arrow-back"></ion-icon> Retour</a>
+                <div class="row decal">
+                  <div class="col-8">
+                    <h1>{{ country?.name }} <small>{{ country?.nativeName }}</small></h1>
+                    <p *ngIf="country && country.translations">{{ country?.translations.join(', ') }}</p>
+                  </div>
+                  <div class="col-4 text-right indicatif">
+                    <ion-icon name="call"></ion-icon>
+                    <span>+{{ country?.callingCodes[0] }}</span><br>
+                    <img src="{{ country?.flag }}" alt="flag" width="120">
+                  </div>
+                </div>
+                <div class="row decal">
+                  <div class="col-12">
+                    <div>
+                      <label for="capital">Capitale</label>
+                      <span>{{ country?.capital }}</span>
+                    </div>
+                    <div *ngIf="country && country.languages">
+                      <label for="languages">Langue</label>
+                      <span>{{ country?.languages[0].name }} / {{ country?.languages[0].nativeName }}</span>
+                    </div>
+                  </div>
+                </div>
+          
+                <!-- Geographic Info -->
+                <div class="row decal">
+                  <div class="col-12">
+                    <h4>Démographie et Géographie</h4>
+                  </div>
+                  <div class="col-12">
+                    <div>
+                      <label for="location">Situation géographique</label>
+                      <span>{{ country?.region }} - {{ country?.subregion }}</span>
+                    </div>
+                    <div>
+                      <label for="population">Population</label>
+                      <span>{{ country?.area|number }} <ion-icon name="people"></ion-icon></span>
+                    </div>
+                    <div>
+                      <label for="demonym">Denomination</label>
+                      <span>{{ country?.demonym }} <img src="{{ country?.flag }}" alt="flag" width="20" height="15"></span>
+                    </div>
+                    <div>
+                      <label for="border_with">Pays frontaliers</label>
+                      <span>{{ country?.borders.join(', ') }}</span>
+                    </div>
+                  </div>
+                </div>
+          
+                <!-- Currency Info -->
+                <div class="row decal">
+                  <div class="col-12">
+                    <h4>Monnaie</h4>
+                  </div>
+                  <div class="col-12">
+                    <div class="currency" *ngFor="let currency of country?.currencies">
+                      <p>{{ currency.name }}</p>
+                      <div>
+                        <label for="currency_code">Code</label>
+                        <span>{{ currency.code }}</span>
+                      </div>
+                      <div>
+                        <label for="currency_symbol">Symbole</label>
+                        <span>{{ currency.symbol }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="loading text-center">
+    <img src="../../../assets/imgs/loading.svg" alt="Loading.." width="80">
+    <h3>Chargement <br>en cours</h3>
+  </div>
+</ng-template>

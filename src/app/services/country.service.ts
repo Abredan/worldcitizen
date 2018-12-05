@@ -51,8 +51,8 @@ export class CountryService {
    * @param codes Code du pays
    * @returns Promise
    */
-  getCountryByListOfCode(codes: string[]){
-    return this.http.get(this.BASE_URL+this.VERSION+"/alpha/?code="+codes.join(';')).toPromise();
+  getCountryByListOfCode(codes: string[], fields: string[]=[]){
+    return this.http.get(this.BASE_URL+this.VERSION+"/alpha/?codes="+codes.join(';')+'&fields='+fields.join(';')).toPromise();
   }
 
   /**
